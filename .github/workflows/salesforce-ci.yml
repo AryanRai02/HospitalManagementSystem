@@ -1,0 +1,70 @@
+
+name: Salesforce CI
+
+on:
+  push:
+    branches:
+      - main
+
+  pull_request:
+    branches:
+      - main
+
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    name: Validate Salesforce Project
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+
+      - name: Install Salesforce CLI
+        run: npm install --global @salesforce/cli
+
+      - name: Verify Salesforce CLI
+        run: sf --version
+
+      - name: Validate Project Structure
+        run: |
+          test -f sfdx-project.json
+          test -d force-app/main/default
+          echo "Salesforce project structure is valid."
+
+      - name: Validate XML and JSON Metadata
+        run: |
+          python3 - <<'PY'
+          import pathlib
+          import xml.etree.ElementTree as ET
+          import json
+
+          files = list(pathlib.Path("force-app").rglob("*.xml"))
+
+          for file in files:
+              ET.parse(file)
+
+          with open("sfdx-project.json", encoding="utf-8") as file:
+              json.load(file)
+
+          print(f"Successfully validated {len(files)} XML files.")
+          print("Salesforce project configuration is valid.")
+          PY
+
+      - name: Convert Salesforce Source Metadata
+        run: |
+          sf project convert source \
+            --root-dir force-app \
+            --output-dir "$RUNNER_TEMP/hms-metadata"
+
+      - name: CI Validation Completed
+        run: echo "Hospital Management System CI validation successful."
