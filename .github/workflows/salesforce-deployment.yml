@@ -31,7 +31,7 @@ jobs:
       - name: Verify Salesforce CLI
         run: sf --version
 
-            - name: Authenticate Salesforce Org
+      - name: Authenticate Salesforce Org
         env:
           SFDX_AUTH_URL: ${{ secrets.SFDX_AUTH_URL }}
         run: |
