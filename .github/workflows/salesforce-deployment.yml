@@ -31,7 +31,7 @@ jobs:
       - name: Verify Salesforce CLI
         run: sf --version
 
-      - name: Authenticate Salesforce Org
+            - name: Authenticate Salesforce Org
         env:
           SFDX_AUTH_URL: ${{ secrets.SFDX_AUTH_URL }}
         run: |
@@ -40,10 +40,15 @@ jobs:
             exit 1
           fi
 
-          printf '%s\n' "$SFDX_AUTH_URL" | \
-            sf org login sfdx-url \
-              --sfdx-url-stdin \
-              --alias HospitalCI
+          AUTH_FILE=$(mktemp)
+          trap 'rm -f "$AUTH_FILE"' EXIT
+          chmod 600 "$AUTH_FILE"
+
+          printf '%s' "$SFDX_AUTH_URL" > "$AUTH_FILE"
+
+          sf org login sfdx-url \
+            --sfdx-url-file "$AUTH_FILE" \
+            --alias HospitalCI
 
       - name: Validate Apex Deployment
         run: |
