@@ -1,0 +1,76 @@
+<template>
+    <lightning-card title="Book Appointment" icon-name="standard:event">
+        <div class="slds-p-horizontal_medium">
+
+            <template lwc:if={isSaving}>
+                <lightning-spinner alternative-text="Saving" size="small"></lightning-spinner>
+            </template>
+
+            <template lwc:if={errorMessage}>
+                <p class="slds-text-color_error slds-m-bottom_small">{errorMessage}</p>
+            </template>
+
+            <!-- Patient: filled by patientSearchBar through the message channel -->
+            <lightning-input label="Patient" value={patientName} placeholder="Pick a patient in the search bar" readonly>
+            </lightning-input>
+
+            <lightning-combobox
+                label="Doctor"
+                value={doctorId}
+                options={doctorOptions}
+                placeholder="Select a doctor"
+                onchange={handleDoctorChange}
+                required
+            ></lightning-combobox>
+
+            <!-- Doctor details read with the record data wire (getRecord) -->
+            <template lwc:if={doctorId}>
+                <div class="slds-box slds-box_x-small slds-m-vertical_small">
+                    <p><b>{doctorName}</b></p>
+                    <p>Specialization: {doctorSpecialization}</p>
+                    <p>Current workload: {doctorWorkload} active appointments</p>
+                </div>
+            </template>
+
+            <lightning-combobox
+                label="Appointment Type"
+                value={recordTypeId}
+                options={recordTypeOptions}
+                placeholder="Select a type"
+                onchange={handleTypeChange}
+                required
+            ></lightning-combobox>
+
+            <lightning-input
+                type="datetime"
+                label="Slot (between 8 AM and 8 PM)"
+                value={slot}
+                onchange={handleSlotChange}
+                required
+            ></lightning-input>
+
+            <!-- Conditional rendering: only for the Specialist Consultation record type -->
+            <template lwc:if={isSpecialist}>
+                <div class="slds-box slds-box_x-small slds-m-vertical_small">
+                    <p class="slds-text-title_caps">Specialist details</p>
+                    <lightning-combobox
+                        label="Specialist Required"
+                        value={specialistRequired}
+                        options={specialistOptions}
+                        onchange={handleSpecialistChange}
+                    ></lightning-combobox>
+                </div>
+            </template>
+
+            <lightning-input label="Appointment Name" value={appointmentName} onchange={handleNameChange} required>
+            </lightning-input>
+
+            <div class="slds-m-vertical_medium">
+                <lightning-button variant="brand" label="Book Appointment" onclick={handleSave} disabled={isSaving}>
+                </lightning-button>
+                <lightning-button class="slds-m-left_small" label="Clear" onclick={handleClear}>
+                </lightning-button>
+            </div>
+        </div>
+    </lightning-card>
+</template>

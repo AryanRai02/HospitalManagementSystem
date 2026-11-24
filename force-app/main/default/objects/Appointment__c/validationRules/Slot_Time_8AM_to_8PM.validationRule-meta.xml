@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Slot_Time_8AM_to_8PM</fullName>
+    <active>true</active>
+    <errorConditionFormula>AND(
+  NOT(ISBLANK(Slot__c)),
+  OR(
+    HOUR(TIMEVALUE(Slot__c + 5.5/24)) &lt; 8,
+    HOUR(TIMEVALUE(Slot__c + 5.5/24)) &gt;= 20
+  )
+)</errorConditionFormula>
+    <errorDisplayField>Slot__c</errorDisplayField>
+    <errorMessage>Appointment slot must be between 8 AM and 8 PM</errorMessage>
+</ValidationRule>

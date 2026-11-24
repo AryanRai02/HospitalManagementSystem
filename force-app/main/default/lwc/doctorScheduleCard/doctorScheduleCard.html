@@ -1,0 +1,46 @@
+<template>
+    <lightning-card title="Doctor Schedule" icon-name="standard:event">
+        <div slot="actions">
+            <lightning-badge label={dateLabel}></lightning-badge>
+        </div>
+
+        <div class="slds-p-horizontal_medium">
+            <template lwc:if={isLoading}>
+                <lightning-spinner alternative-text="Loading schedule" size="small"></lightning-spinner>
+            </template>
+
+            <template lwc:if={errorMessage}>
+                <p class="slds-text-color_error">{errorMessage}</p>
+            </template>
+
+            <template lwc:if={hasRows}>
+                <table class="slds-table slds-table_cell-buffer slds-table_bordered">
+                    <thead>
+                        <tr class="slds-line-height_reset">
+                            <th scope="col">Time</th>
+                            <th scope="col">Patient</th>
+                            <th scope="col">Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <template for:each={rows} for:item="row">
+                            <tr key={row.id} data-id={row.id} class="schedule-row" onclick={handleRowClick}>
+                                <td>{row.timeLabel}</td>
+                                <td>{row.patientName}</td>
+                                <td>
+                                    <lightning-badge label={row.status}></lightning-badge>
+                                </td>
+                            </tr>
+                        </template>
+                    </tbody>
+                </table>
+            </template>
+
+            <template lwc:if={showEmpty}>
+                <p class="slds-p-vertical_medium slds-text-color_weak">
+                    No appointments for this doctor on this day.
+                </p>
+            </template>
+        </div>
+    </lightning-card>
+</template>

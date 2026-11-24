@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Doctor_Not_Inactive</fullName>
+    <active>true</active>
+    <errorConditionFormula>AND(
+  NOT(ISBLANK(Doctor__c)),
+  TEXT(Doctor__r.Status__c) = &quot;Inactive&quot;
+)</errorConditionFormula>
+    <errorDisplayField>Doctor__c</errorDisplayField>
+    <errorMessage>This doctor is on leave (Inactive) and cannot be booked</errorMessage>
+</ValidationRule>

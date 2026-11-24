@@ -1,0 +1,43 @@
+<template>
+    <lightning-card title="Patient Search" icon-name="standard:search">
+        <div class="slds-p-horizontal_medium">
+            <lightning-input
+                type="search"
+                label="Search by patient name or ID"
+                placeholder="Type at least 2 characters"
+                value={searchTerm}
+                onchange={handleChange}
+            ></lightning-input>
+
+            <template lwc:if={isSearching}>
+                <p class="slds-p-top_small slds-text-color_weak">Searching...</p>
+            </template>
+
+            <template lwc:if={errorMessage}>
+                <p class="slds-p-top_small slds-text-color_error">{errorMessage}</p>
+            </template>
+
+            <template lwc:if={hasResults}>
+                <ul class="slds-has-dividers_bottom-space slds-m-top_small">
+                    <template for:each={results} for:item="patient">
+                        <li key={patient.Id} class="slds-item result-item" data-id={patient.Id} data-name={patient.label}
+                            onclick={handleSelect}>
+                            <div class="slds-text-heading_small">{patient.label}</div>
+                            <div class="slds-text-color_weak">{patient.Name} | DOB: {patient.dobLabel}</div>
+                        </li>
+                    </template>
+                </ul>
+            </template>
+
+            <template lwc:if={showNoResults}>
+                <p class="slds-p-top_small slds-text-color_weak">No patients found.</p>
+            </template>
+
+            <template lwc:if={selectedName}>
+                <p class="slds-p-top_small">
+                    Selected: <lightning-formatted-text value={selectedName}></lightning-formatted-text>
+                </p>
+            </template>
+        </div>
+    </lightning-card>
+</template>

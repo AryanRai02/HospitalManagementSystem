@@ -1,0 +1,124 @@
+<template>
+    <div class="slds-p-around_medium">
+
+        <!-- Header: date filter (passed down to the schedule card) -->
+        <div class="slds-grid slds-wrap slds-grid_vertical-align-end slds-m-bottom_medium">
+            <div class="slds-col slds-size_1-of-1 slds-large-size_1-of-2">
+                <h1 class="slds-text-heading_large">MedCare Hospital Dashboard</h1>
+                <p class="slds-text-color_weak">Today's operations at a glance</p>
+            </div>
+            <div class="slds-col slds-size_1-of-1 slds-large-size_1-of-2 slds-grid slds-grid_align-end slds-grid_vertical-align-end">
+                <lightning-input type="date" label="Date" value={selectedDate} onchange={handleDateChange}>
+                </lightning-input>
+                <lightning-button class="slds-m-left_small" label="Refresh" icon-name="utility:refresh"
+                    onclick={refreshAll}></lightning-button>
+                <lightning-button class="slds-m-left_small" label="Register Patient" icon-name="utility:adduser"
+                    variant="brand" onclick={openRegisterFlow}></lightning-button>
+                <lightning-button class="slds-m-left_small" label="Open Selected Patient" icon-name="utility:user"
+                    disabled={noPatientSelected} onclick={openSelectedPatient}></lightning-button>
+            </div>
+        </div>
+
+        <template lwc:if={isLoading}>
+            <lightning-spinner alternative-text="Loading dashboard" size="small"></lightning-spinner>
+        </template>
+        <template lwc:if={errorMessage}>
+            <p class="slds-text-color_error slds-m-bottom_small">{errorMessage}</p>
+        </template>
+
+        <!-- Key metrics -->
+        <div class="slds-grid slds-wrap slds-gutters slds-m-bottom_medium">
+            <div class="slds-col slds-size_1-of-2 slds-large-size_1-of-6">
+                <div class="metric-tile slds-box">
+                    <div class="metric-value">{stats.total}</div>
+                    <div class="metric-label">Appointments</div>
+                </div>
+            </div>
+            <div class="slds-col slds-size_1-of-2 slds-large-size_1-of-6">
+                <div class="metric-tile slds-box">
+                    <div class="metric-value">{stats.requested}</div>
+                    <div class="metric-label">Requested</div>
+                </div>
+            </div>
+            <div class="slds-col slds-size_1-of-2 slds-large-size_1-of-6">
+                <div class="metric-tile slds-box">
+                    <div class="metric-value">{stats.confirmed}</div>
+                    <div class="metric-label">Confirmed</div>
+                </div>
+            </div>
+            <div class="slds-col slds-size_1-of-2 slds-large-size_1-of-6">
+                <div class="metric-tile slds-box">
+                    <div class="metric-value">{stats.completed}</div>
+                    <div class="metric-label">Completed</div>
+                </div>
+            </div>
+            <div class="slds-col slds-size_1-of-2 slds-large-size_1-of-6">
+                <div class="metric-tile slds-box">
+                    <div class="metric-value">
+                        <lightning-formatted-number value={revenue.monthRevenue} format-style="currency"
+                            currency-code="INR" maximum-fraction-digits="0"></lightning-formatted-number>
+                    </div>
+                    <div class="metric-label">Revenue this month</div>
+                </div>
+            </div>
+            <div class="slds-col slds-size_1-of-2 slds-large-size_1-of-6">
+                <div class="metric-tile slds-box">
+                    <div class="metric-value">{revenue.pendingApprovals}</div>
+                    <div class="metric-label">Pending approvals</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Department summary: rendered with a loop -->
+        <lightning-card title="Department Summary" icon-name="standard:team_member">
+            <div class="slds-p-horizontal_medium">
+                <template lwc:if={hasDepartments}>
+                    <table class="slds-table slds-table_cell-buffer slds-table_bordered">
+                        <thead>
+                            <tr class="slds-line-height_reset">
+                                <th scope="col">Department</th>
+                                <th scope="col">Beds</th>
+                                <th scope="col">Doctors</th>
+                                <th scope="col">Appointments on this date</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <template for:each={departments} for:item="dept">
+                                <tr key={dept.id}>
+                                    <td>{dept.name}</td>
+                                    <td>{dept.bedCountLabel}</td>
+                                    <td>{dept.doctorCount}</td>
+                                    <td>{dept.appointmentsToday}</td>
+                                </tr>
+                            </template>
+                        </tbody>
+                    </table>
+                </template>
+                <template lwc:if={noDepartments}>
+                    <p class="slds-p-vertical_small slds-text-color_weak">No departments found.</p>
+                </template>
+            </div>
+        </lightning-card>
+
+        <!-- Doctor schedule (child component, receives selectedDate from this parent) -->
+        <div class="slds-m-top_medium">
+            <lightning-combobox label="Doctor" value={selectedDoctorId} options={doctorOptions}
+                placeholder="Select a doctor to see the schedule" onchange={handleDoctorChange}>
+            </lightning-combobox>
+            <template lwc:if={selectedDoctorId}>
+                <c-doctor-schedule-card doctor-id={selectedDoctorId} selected-date={selectedDate}
+                    onappointmentselected={handleAppointmentSelected}></c-doctor-schedule-card>
+            </template>
+        </div>
+
+        <!-- Booking: patientSearchBar -> message channel -> appointmentForm -> event/message back here -->
+        <div class="slds-grid slds-wrap slds-gutters slds-m-top_medium">
+            <div class="slds-col slds-size_1-of-1 slds-large-size_1-of-2">
+                <c-patient-search-bar></c-patient-search-bar>
+            </div>
+            <div class="slds-col slds-size_1-of-1 slds-large-size_1-of-2">
+                <c-appointment-form stay-on-page onappointmentbooked={handleAppointmentBooked}></c-appointment-form>
+            </div>
+        </div>
+    </div>
+</template>
