@@ -177,7 +177,7 @@
         </connector>
         <schedule>
             <dayOfMonthToRun>0</dayOfMonthToRun>
-            <frequency>Once</frequency>
+            <frequency>Weekly</frequency>
             <frequencyNumber>0</frequencyNumber>
             <startDate>2026-11-22</startDate>
             <startTime>21:15:00.000Z</startTime>
