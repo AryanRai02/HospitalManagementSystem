@@ -1,0 +1,61 @@
+
+name: Salesforce Deployment Validation
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  validate-deployment:
+    name: Validate Salesforce Deployment
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    if: github.ref == 'refs/heads/main'
+
+    environment: salesforce-validation
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+
+      - name: Install Salesforce CLI
+        run: npm install --global @salesforce/cli
+
+      - name: Verify Salesforce CLI
+        run: sf --version
+
+      - name: Authenticate Salesforce Org
+        env:
+          SFDX_AUTH_URL: ${{ secrets.SFDX_AUTH_URL }}
+        run: |
+          if [ -z "$SFDX_AUTH_URL" ]; then
+            echo "Salesforce authentication secret is missing."
+            exit 1
+          fi
+
+          printf '%s\n' "$SFDX_AUTH_URL" | \
+            sf org login sfdx-url \
+              --sfdx-url-stdin \
+              --alias HospitalCI
+
+      - name: Validate Apex Deployment
+        run: |
+          sf project deploy start \
+            --source-dir force-app/main/default/classes \
+            --source-dir force-app/main/default/triggers \
+            --target-org HospitalCI \
+            --dry-run \
+            --test-level RunLocalTests \
+            --wait 30
+
+      - name: Deployment Validation Completed
+        run: |
+          echo "Hospital Management System deployment validation successful."
+          echo "No metadata changes were committed to the Salesforce org."
