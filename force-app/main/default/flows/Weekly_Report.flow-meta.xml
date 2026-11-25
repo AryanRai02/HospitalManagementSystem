@@ -78,6 +78,13 @@
                 <elementReference>AppointmentLine</elementReference>
             </value>
         </assignmentItems>
+        <assignmentItems>
+            <assignToReference>SummaryText</assignToReference>
+            <operator>Add</operator>
+            <value>
+                <elementReference>NewLine</elementReference>
+            </value>
+        </assignmentItems>
         <connector>
             <targetReference>Loop_Appointments</targetReference>
         </connector>
@@ -96,6 +103,11 @@
         <locationY>0</locationY>
     </ends>
     <environments>Default</environments>
+    <formulas>
+        <name>NewLine</name>
+        <dataType>String</dataType>
+        <expression>BR()</expression>
+    </formulas>
     <formulas>
         <name>SlotText</name>
         <dataType>String</dataType>
@@ -187,7 +199,7 @@
     <status>Active</status>
     <textTemplates>
         <name>AppointmentLine</name>
-        <isViewedAsPlainText>false</isViewedAsPlainText>
+        <isViewedAsPlainText>true</isViewedAsPlainText>
         <text>{!Loop_Appointments.Name} | {!Loop_Appointments.Slot__c} | {!SlotText}</text>
     </textTemplates>
     <textTemplates>
