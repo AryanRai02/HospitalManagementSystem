@@ -1,6 +1,6 @@
 import { LightningElement, api, wire } from 'lwc';
 import getAppointmentsByDoctor from '@salesforce/apex/HospitalController.getAppointmentsByDoctor';
-
+import { refreshApex } from '@salesforce/apex';
 export default class DoctorScheduleCard extends LightningElement {
     // Passed in by the parent (for example hospitalDashboard passes selectedDate)
     // On a Doctor record page Salesforce fills recordId automatically
@@ -9,6 +9,7 @@ export default class DoctorScheduleCard extends LightningElement {
     @api selectedDate; // ISO date string, for example 2026-11-23
 
     rows = [];
+    loaded = false;
     errorMessage;
     isLoading = false;
 
@@ -49,10 +50,12 @@ export default class DoctorScheduleCard extends LightningElement {
         get effectiveDoctorId() {
         return this.doctorId || this.recordId;
     }
+    get effectiveDate() {
+    return this.selectedDate || null;
+}
     get showEmpty() {
-        return !this.isLoading && !this.errorMessage && this.rows.length === 0 && !!this.doctorId;
-    }
-
+    return this.loaded && !this.errorMessage && this.rows.length === 0 && !!this.effectiveDoctorId;
+}
     get dateLabel() {
         const date = this.selectedDate ? new Date(this.selectedDate + 'T00:00:00') : new Date();
         return date.toLocaleDateString(undefined, { day: 'numeric', month: 'short', year: 'numeric' });
