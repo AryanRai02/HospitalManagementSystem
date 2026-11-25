@@ -1,4 +1,4 @@
-# Hospital Management System â€” MedCare Hospital
+# Hospital Management System  MedCare Hospital
 
 A Salesforce-based Hospital Management System (HMS) built as a training and demonstration project. It brings patient registration, appointment scheduling, doctor workload, department management, billing, medical records and hospital reporting into a single Lightning application.
 
