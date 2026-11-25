@@ -43,7 +43,7 @@ The project also uses custom fields, relationships, validation rules, record typ
 
 ## Security and access control
 
-Custom profiles include Hospital Admin, Doctor and Receptionist. The role hierarchy is CEO â†’ Hospital Admin â†’ Department Head â†’ Doctor â†’ Receptionist. Permission sets, sharing rules, field-level security and object permissions support role-based access. The `Billing_Managers` public group supports the billing approval configuration.
+Custom profiles include Hospital Admin, Doctor and Receptionist. The role hierarchy is CEO → Hospital Admin → Department Head → Doctor → Receptionist. Permission sets, sharing rules, field-level security and object permissions support role-based access. The `Billing_Managers` public group supports the billing approval configuration.
 
 This is a demonstration application, not a production-ready clinical system. Apex sharing, CRUD/FLS enforcement, email delivery, integrations and handling of patient information require further security review before real-world use.
 
