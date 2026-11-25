@@ -107,13 +107,17 @@ These are development-org results, not a guarantee of coverage or deployment suc
 
 ```text
 HospitalManagementSystem/
-â”œâ”€â”€ force-app/main/default/   # Salesforce metadata
-â”œâ”€â”€ config/                   # Scratch org configuration
-â”œâ”€â”€ scripts/                  # Apex and SOQL example scripts
-â”œâ”€â”€ .forceignore              # Salesforce CLI exclusions
-â”œâ”€â”€ .gitignore                # Git exclusions
-â”œâ”€â”€ sfdx-project.json         # Salesforce DX project configuration
-â””â”€â”€ README.md
+|-- force-app/main/default/
+|-- config/
+|-- scripts/
+|-- docs/
+|   |-- TESTING.md
+|   `-- DESIGN_DECISIONS.md
+|-- .github/workflows/
+|-- .forceignore
+|-- .gitignore
+|-- sfdx-project.json
+`-- README.md
 ```
 
 The metadata directory contains Apex classes, triggers, objects, flows, Lightning components, security configuration, reports, dashboards, approval processes and integration configuration.
