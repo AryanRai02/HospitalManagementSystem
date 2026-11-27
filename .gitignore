@@ -94,3 +94,21 @@ $RECYCLE.BIN/
 !/force-app/main/default/sharingRules/Procedure__c.sharingRules-meta.xml
 
 retrieved/
+
+# Local Salesforce execution logs
+/*_DryRun*.txt
+/*_Permanent*.txt
+/Billing_Approval_Pilot*.txt
+/HMS_*_Inspection.txt
+/Final_Apex_Test_Results.txt
+
+# Local backups and deployment artifacts
+/backups/
+/final-deployment/
+*.backup.apex
+
+# Salesforce local configuration
+.sf/
+.sfdx/
+.env
+.env.*

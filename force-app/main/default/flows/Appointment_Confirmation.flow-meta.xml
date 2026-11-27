@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+﻿<?xml version="1.0" encoding="UTF-8"?>
 <Flow xmlns="http://soap.sforce.com/2006/04/metadata">
     <actionCalls>
         <name>Appointment_Confirmation</name>
@@ -23,6 +23,34 @@
     </actionCalls>
     <apiVersion>68.0</apiVersion>
     <areMetricsLoggedToDataCloud>false</areMetricsLoggedToDataCloud>
+    <decisions>
+        <name>Check_Patient_Email</name>
+        <label>Check Patient Email</label>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <defaultConnector>
+            <targetReference>END_ELEMENT_1</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>No Email</defaultConnectorLabel>
+        <rules>
+            <name>Email_Available</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.Patient__r.Email__c</leftValueReference>
+                <operator>IsNull</operator>
+                <rightValue>
+                    <booleanValue>false</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Appointment_Confirmation</targetReference>
+            </connector>
+            <label>Email Available</label>
+        </rules>
+    </decisions>
+    <description>Added patient email availability validation before
+sending appointment confirmation email. Patients without
+email addresses can now have appointments confirmed.</description>
     <ends>
         <name>END_ELEMENT_1</name>
         <locationX>0</locationX>
@@ -61,7 +89,7 @@
         <locationX>0</locationX>
         <locationY>0</locationY>
         <connector>
-            <targetReference>Appointment_Confirmation</targetReference>
+            <targetReference>Check_Patient_Email</targetReference>
         </connector>
         <filterLogic>and</filterLogic>
         <filters>
@@ -107,3 +135,4 @@
     </start>
     <status>Active</status>
 </Flow>
+
