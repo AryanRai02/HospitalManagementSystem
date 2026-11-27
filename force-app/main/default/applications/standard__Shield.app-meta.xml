@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomApplication xmlns="http://soap.sforce.com/2006/04/metadata">
+    <formFactors>Large</formFactors>
+    <isNavAutoTempTabsDisabled>false</isNavAutoTempTabsDisabled>
+    <isNavPersonalizationDisabled>false</isNavPersonalizationDisabled>
+    <isNavTabPersistenceDisabled>false</isNavTabPersistenceDisabled>
+    <isOmniPinnedViewEnabled>false</isOmniPinnedViewEnabled>
+    <label>Shield</label>
+    <navType>Standard</navType>
+    <tabs>standard-ShieldHome</tabs>
+    <tabs>standard-DataDetect</tabs>
+    <tabs>standard-FieldAuditTrail</tabs>
+    <tabs>standard-EventMonitoring</tabs>
+    <tabs>standard-PlatformEncryption</tabs>
+    <tabs>Patient__c</tabs>
+    <tabs>Doctor__c</tabs>
+    <tabs>Appointment__c</tabs>
+    <tabs>Department__c</tabs>
+    <tabs>Billing__c</tabs>
+    <tabs>Medical_Record__c</tabs>
+    <tabs>Patient_Procedure__c</tabs>
+    <tabs>Procedure__c</tabs>
+    <uiType>Lightning</uiType>
+</CustomApplication>

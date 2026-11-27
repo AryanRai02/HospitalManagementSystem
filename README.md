@@ -195,3 +195,8 @@ The dry runs validated 31 of 31 Apex components and 154 of 154 components in the
 - [Salesforce DX Developer Guide](https://developer.salesforce.com/docs/atlas.en-us.sfdx_dev.meta/sfdx_dev/)
 - [Salesforce CLI Command Reference](https://developer.salesforce.com/docs/atlas.en-us.sfdx_cli_reference.meta/sfdx_cli_reference/)
 - [Salesforce VS Code Extensions](https://developer.salesforce.com/tools/vscode/)
+
+## Required repository secret
+
+The Salesforce Apex Tests and Salesforce Deployment Validation workflows need a repository secret named SFDX_AUTH_URL, which holds the Salesforce authentication URL of the target org. No secret value is stored in this repository.
+
