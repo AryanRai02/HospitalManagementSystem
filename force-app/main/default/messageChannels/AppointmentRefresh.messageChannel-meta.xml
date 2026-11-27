@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<LightningMessageChannel xmlns="http://soap.sforce.com/2006/04/metadata">
+    <description>Published when a new appointment is booked, so dashboards can refresh</description>
+    <isExposed>true</isExposed>
+    <lightningMessageFields>
+        <description>New appointment record Id</description>
+        <fieldName>appointmentId</fieldName>
+    </lightningMessageFields>
+    <masterLabel>Appointment Refresh</masterLabel>
+</LightningMessageChannel>
