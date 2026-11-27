@@ -42,6 +42,10 @@
         <name>ApprovalProcess</name>
     </types>
     <types>
+        <members>Hospital_App</members>
+        <name>CustomApplication</name>
+    </types>
+    <types>
         <members>Appointment__c.Appointment_Type__c</members>
         <members>Appointment__c.Doctor__c</members>
         <members>Appointment__c.Is_Today__c</members>
@@ -105,6 +109,18 @@
         <name>CustomObject</name>
     </types>
     <types>
+        <members>Appointment__c</members>
+        <members>Billing__c</members>
+        <members>Department__c</members>
+        <members>Doctor__c</members>
+        <members>Medical_Record__c</members>
+        <members>Patient_Procedure__c</members>
+        <members>Patient__c</members>
+        <members>Procedure__c</members>
+        <members>Register_Patient</members>
+        <name>CustomTab</name>
+    </types>
+    <types>
         <members>HMSDashboards/</members>
         <members>HMSDashboards/hwoQpaVfBVUVftZGldDjctiYyQQLup</members>
         <name>Dashboard</name>
@@ -112,6 +128,16 @@
     <types>
         <members>LabSystem_EC</members>
         <name>ExternalCredential</name>
+    </types>
+    <types>
+        <members>Appointment_Record_Page</members>
+        <members>Doctor_Record_Page</members>
+        <members>Hospital_App_UtilityBar</members>
+        <members>Hospital_Home</members>
+        <members>Patient_Emergency_Record_Page</members>
+        <members>Patient_Record_Page</members>
+        <members>Register_Patient</members>
+        <name>FlexiPage</name>
     </types>
     <types>
         <members>Appointment_Confirmation</members>
@@ -128,6 +154,24 @@
     <types>
         <members>Billing_Managers</members>
         <name>Group</name>
+    </types>
+    <types>
+        <members>Appointment__c-Appointment Layout</members>
+        <members>Appointment__c-Appointment Layout - Emergency</members>
+        <members>Appointment__c-Appointment Layout - General</members>
+        <members>Appointment__c-Appointment Layout - Receptionist</members>
+        <members>Appointment__c-Appointment Layout - Specialist</members>
+        <members>Billing__c-Billing Layout</members>
+        <members>Department__c-Department Layout</members>
+        <members>Doctor__c-Doctor Layout</members>
+        <members>Medical_Record__c-Medical Record Layout</members>
+        <members>Patient_Procedure__c-Patient Procedure Layout</members>
+        <members>Patient__c-Patient Layout</members>
+        <members>Patient__c-Patient Layout - Emergency</members>
+        <members>Patient__c-Patient Layout - Inpatient</members>
+        <members>Patient__c-Patient Layout - Outpatient</members>
+        <members>Procedure__c-Procedure Layout</members>
+        <name>Layout</name>
     </types>
     <types>
         <members>appointmentForm</members>
@@ -150,6 +194,17 @@
     <types>
         <members>LabSystem_NC</members>
         <name>NamedCredential</name>
+    </types>
+    <types>
+        <members>Billing_Manager</members>
+        <members>Doctor_Permissions</members>
+        <members>Lab_Access</members>
+        <members>Lab_Integration</members>
+        <name>PermissionSet</name>
+    </types>
+    <types>
+        <members>Doctor_Extended</members>
+        <name>PermissionSetGroup</name>
     </types>
     <types>
         <members>Admin</members>
@@ -200,6 +255,12 @@
         <members>StandardAul</members>
         <members>Work%2Ecom Only User</members>
         <name>Profile</name>
+    </types>
+    <types>
+        <members>Patient__c.Schedule_Follow_up_Appointment</members>
+        <members>Patient__c.Send_Patient_Email</members>
+        <members>Patient__c.Send_Patient_Summary_Email</members>
+        <name>QuickAction</name>
     </types>
     <types>
         <members>Appointment__c.Emergency</members>

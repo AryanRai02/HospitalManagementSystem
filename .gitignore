@@ -92,3 +92,5 @@ $RECYCLE.BIN/
 !/force-app/main/default/sharingRules/Patient_Procedure__c.sharingRules-meta.xml
 !/force-app/main/default/sharingRules/Patient__c.sharingRules-meta.xml
 !/force-app/main/default/sharingRules/Procedure__c.sharingRules-meta.xml
+
+retrieved/
