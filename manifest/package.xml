@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+﻿<?xml version="1.0" encoding="UTF-8"?>
 <Package xmlns="http://soap.sforce.com/2006/04/metadata">
     <types>
         <members>AppointmentReminderBatch</members>
@@ -308,6 +308,12 @@
     <types>
         <members>Billing__c.Revise_rejected_bill</members>
         <name>WorkflowTask</name>
+    </types>
+    <types>
+        <members>unfiled$public/Appointment_Confirmation_Template_1794811702777</members>
+        <members>unfiled$public/Appointment_Reminder_Template_1794837562713</members>
+        <members>unfiled$public/Billing_Approved_Template_1794922524728</members>
+        <name>EmailTemplate</name>
     </types>
     <version>68.0</version>
 </Package>
